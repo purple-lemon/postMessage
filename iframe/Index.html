@@ -1,0 +1,45 @@
+<html>
+
+<head></head>
+
+<body>
+    <h2>Iframe holder</h2>
+    <div style="border: 1px solid #333">
+        <iframe id="player" src="iframe.html"></iframe>
+    </div>
+    <div>
+        <h3>Controls</h3>
+        <button id="play">Play</button>
+        <button id="stop">Stop</button>
+    </div>
+    <div>
+        <h3>Message</h3>
+        <div id="message"></div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var player = document.getElementById("player").contentWindow;
+            document.getElementById("play").addEventListener('click', function () {
+                player.postMessage({
+                    state: "play"
+                });
+            });
+            document.getElementById("stop").addEventListener('click', function () {
+                player.postMessage({
+                    state: "stop"
+                });
+            });
+
+            if ( window.addEventListener ) {
+                window.addEventListener('message', handleMessage, false);
+            } else if ( window.attachEvent ) { // ie8
+                window.attachEvent('onmessage', handleMessage);
+            }
+            function handleMessage(event){
+                document.getElementById("message").innerText = event.data.text;
+            }
+        });
+    </script>
+</body>
+
+</html>

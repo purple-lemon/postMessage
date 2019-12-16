@@ -1,0 +1,32 @@
+<html>
+    <head></head>
+    <body>
+        <h2>Audio player</h2>
+        <div>
+            <audio id="player" src="/kill-bill-whistle.mp3" controls></audio>
+            <button id="postToParent">Post</button>
+        </div>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                var player = document.getElementById("player")
+                // Assign handler to message event
+                if ( window.addEventListener ) {
+                    window.addEventListener('message', handleMessage, false);
+                } else if ( window.attachEvent ) { // ie8
+                    window.attachEvent('onmessage', handleMessage);
+                }
+                function handleMessage(event){
+                    if(event.data.state == "play"){
+                        player.play();
+                    } else if(event.data.state == "stop") {
+                        player.pause();
+                        player.currentTime = 0;
+                    }
+                }
+                document.getElementById("postToParent").addEventListener("click", function(){
+                    window.parent.postMessage({ text: new Date().toISOString() })
+                });
+            });
+        </script>
+    </body>
+</html>

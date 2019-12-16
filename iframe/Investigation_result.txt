@@ -1,0 +1,12 @@
+Youtube uses iframes.
+Parameters passed as query string parameters in iframe SRC url. 
+Interaction with player organized with js lib that underhood uses Browser postMessages functionality.
+    
+Vimeo also share using Iframe. There is no possibility to interact with player. User can operate with it by controls that rendered inside player.
+
+Facebook: Also uses Iframe. They have alos lib that user can use to interact with player. Smth similar to fb.
+
+What we can do:
+Api may be organized with PostMessage functionality To/From iframe. 
+    Concerns: may be issues with cross origin adresses. We need to be sure that page with player have tags that allows to recieve "Messages" from other origin. Same should be for customer who injecting iframes.
+    Pros: player may report events to "container" window. Need to check if IE9 supports it well
